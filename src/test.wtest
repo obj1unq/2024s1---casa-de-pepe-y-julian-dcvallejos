@@ -1,0 +1,37 @@
+
+import casa.*
+
+describe "Pruebas de casa de Julian" {
+
+	test "Romper algo de 1000 para que la casa no este en orden" {
+		casa.viveres(50)
+		casa.romperAlgo(1000)
+		assert.equals(false, casa.laCasaEstaEnOrden())		
+	}
+}
+
+describe "Pruebas sobre cuentas bancarias"{
+	
+	test "Cuenta con gastos"{
+		cuentaConGastos.vaciarCuenta()
+		cuentaConGastos.costoXOperacion(20)
+		cuentaConGastos.depositar(1000)
+		assert.equals(980, cuentaConGastos.saldo())
+	}
+	
+	test "Cuenta combinada"{
+		cuentaCombinada.cuentaPrimaria(cuentaConGastos)
+		cuentaConGastos.costoXOperacion(50)		
+		cuentaCombinada.cuentaSecundaria(cuentaCorriente)
+		cuentaCorriente.saldo(500)
+		cuentaCombinada.depositar(100)
+		assert.equals(50, cuentaConGastos.saldo())
+		cuentaCombinada.extraer(200)
+		assert.equals(300, cuentaCorriente.saldo())
+		assert.equals(50, cuentaConGastos.saldo())
+		assert.equals(350, cuentaCombinada.saldo())
+
+	
+		
+	}
+}
