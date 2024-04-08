@@ -4,10 +4,87 @@ import casa.*
 describe "Pruebas de casa de Julian" {
 
 	test "Romper algo de 1000 para que la casa no este en orden" {
-		casa.viveres(50)
-		casa.romperAlgo(1000)
-		assert.equals(false, casa.laCasaEstaEnOrden())		
+		casaJulian.viveres(50)
+		casaJulian.romperAlgo(1000)
+		assert.equals(false, casaJulian.laCasaEstaEnOrden())		
 	}
+	
+	test "Finanzas de la casa con estrategia full y no repara casa"{
+		casaJulian.viveres(50)
+		casaJulian.romperAlgo(100)
+		cuentaCorriente.saldo(1000)
+		casaJulian.estrategiaAhorro(full)
+		casaJulian.mantenimientoCasa()
+		assert.equals(90, casaJulian.viveres())
+		assert.equals(100, casaJulian.montoReparaciones())
+		assert.equals(800, cuentaCorriente.saldo())
+	}
+	
+	test "Finanzas de la casa con estrategia full y reparar casa"{
+		casaJulian.viveres(50)
+		casaJulian.romperAlgo(100)
+		cuentaCorriente.saldo(2000)
+		casaJulian.estrategiaAhorro(full)
+		casaJulian.mantenimientoCasa()
+		assert.equals(90, casaJulian.viveres())
+		assert.equals(0, casaJulian.montoReparaciones())
+		assert.equals(1700, cuentaCorriente.saldo())
+	}
+	
+	test "Finanzas de la casa con estrategia minima e indispensable"{
+		casaJulian.viveres(30)
+		casaJulian.romperAlgo(100)
+		cuentaCorriente.saldo(1000)
+		casaJulian.estrategiaAhorro(minimoEIndispensable)
+		minimoEIndispensable.calidad(5)
+		casaJulian.mantenimientoCasa()
+		assert.equals(40, casaJulian.viveres())
+		assert.equals(100, casaJulian.montoReparaciones())
+		assert.equals(950, cuentaCorriente.saldo())
+	}
+}
+
+describe "Pruebas de casa de Pepe" {
+
+	test "Romper algo de 1000 para que la casa no este en orden" {
+		casaPepe.viveres(50)
+		casaPepe.romperAlgo(1000)
+		assert.equals(false, casaPepe.laCasaEstaEnOrden())		
+	}
+	
+	test "Finanzas de la casa con estrategia full y no repara casa"{
+		casaPepe.viveres(50)
+		casaPepe.romperAlgo(100)
+		cuentaConGastos.saldo(1000)
+		casaPepe.estrategiaAhorro(full)
+		casaPepe.mantenimientoCasa()
+		assert.equals(90, casaPepe.viveres())
+		assert.equals(600, casaPepe.montoReparaciones())
+		assert.equals(600, cuentaConGastos.saldo())
+	}
+	
+	test "Finanzas de la casa con estrategia full y reparar casa"{
+		casaPepe.viveres(50)
+		casaPepe.romperAlgo(100)
+		cuentaConGastos.saldo(2000)
+		casaPepe.estrategiaAhorro(full)
+		casaPepe.mantenimientoCasa()
+		assert.equals(90, casaPepe.viveres())
+		assert.equals(0, casaPepe.montoReparaciones())
+		assert.equals(1200, cuentaConGastos.saldo())
+	}
+	
+	test "Finanzas de la casa con estrategia minima e indispensable"{
+		casaPepe.viveres(30)
+		casaPepe.romperAlgo(100)
+		cuentaConGastos.saldo(1000)
+		casaPepe.estrategiaAhorro(minimoEIndispensable)
+		minimoEIndispensable.calidad(5)
+		casaPepe.mantenimientoCasa()
+		assert.equals(40, casaPepe.viveres())
+		assert.equals(600, casaPepe.montoReparaciones())
+		assert.equals(600, cuentaConGastos.saldo())
+	}	
 }
 
 describe "Pruebas sobre cuentas bancarias"{
@@ -30,8 +107,6 @@ describe "Pruebas sobre cuentas bancarias"{
 		assert.equals(300, cuentaCorriente.saldo())
 		assert.equals(50, cuentaConGastos.saldo())
 		assert.equals(350, cuentaCombinada.saldo())
-
-	
 		
 	}
 }
